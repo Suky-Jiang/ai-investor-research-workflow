@@ -21,8 +21,8 @@ This project was built as a portfolio demonstration of how AI and workflow autom
 
 ### View Live Results
 [View the results spreadsheet](https://docs.google.com/spreadsheets/d/13W-tKoZgVYN7_ETcR0ofaqm_aM6JVAefTNOi2UveD24/edit?usp=sharing)
----
 
+---
 ## 💡 The Problem
 
 Research and account-management teams may receive frequent client requests asking for information on specific companies, markets, geographies, and business topics.
