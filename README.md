@@ -16,6 +16,11 @@ This project was built as a portfolio demonstration of how AI and workflow autom
 
 > All research records and client information used in this project are synthetic.
 
+## ⚙️ View the Workflow
+[View the complete Make automation scenario](https://eu1.make.com/public/shared-scenario/WdV0fTydoyP/ai-research-request-triage-content-rec)
+
+### View Live Results
+[View the results spreadsheet](https://docs.google.com/spreadsheets/d/13W-tKoZgVYN7_ETcR0ofaqm_aM6JVAefTNOi2UveD24/edit?usp=sharing)
 ---
 
 ## 💡 The Problem
