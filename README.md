@@ -1,129 +1,250 @@
 # AI-Assisted Investor Research Workflow
 
-A no-code AI workflow for triaging simulated investor research requests, ranking relevant research, drafting client responses, and tracking client preferences using Tally, Make and Google Sheets.
+A no-code AI-assisted workflow that processes simulated investor research requests, ranks relevant research from a synthetic content library, drafts client responses, and captures reusable client preferences.
 
-## 🚀 Try the Project
+This project was built as a portfolio demonstration of how AI and workflow automation can support research and account-management teams.
 
-👉 **[Try the Live Demo](https://tally.so/r/obPlJX)**
+---
 
-📊 **[View the Synthetic Research Library](https://docs.google.com/spreadsheets/d/13W-tKoZgVYN7_ETcR0ofaqm_aM6JVAefTNOi2UveD24/edit?usp=sharing)**
+## 🚀 Live Demo
 
-⚙️ **[View the Workflow Diagram](https://eu1.make.com/public/shared-scenario/WdV0fTydoyP/ai-research-request-triage-content-rec)**
+### Try the Workflow
+[Submit a simulated investor research request via Tally](https://tally.so/r/obPlJX)
 
-📋 **[See Example Output](https://docs.google.com/spreadsheets/d/13W-tKoZgVYN7_ETcR0ofaqm_aM6JVAefTNOi2UveD24/edit?usp=sharing)**
+### View the Research Library
+[View the synthetic research database](https://docs.google.com/spreadsheets/d/13W-tKoZgVYN7_ETcR0ofaqm_aM6JVAefTNOi2UveD24/edit?usp=sharing)
 
-## 🔄 How It Works
-Tally → Make → Google Sheets → AI → Human Review
+> All research records and client information used in this project are synthetic.
+
+---
+
+## 💡 The Problem
+
+Research and account-management teams may receive frequent client requests asking for information on specific companies, markets, geographies, and business topics.
+
+Manually reviewing a research library, identifying the most relevant content, drafting a response, and recording client interests can involve repetitive administrative work.
+
+I built this workflow to explore how AI can assist with those tasks while keeping human review in the process.
+
+---
+
+## 🔄 How the Workflow Works
+
+```text
+Tally
+Client submits research request
+        ↓
+Google Sheets
+Request is logged
+        ↓
+Google Sheets
+Research library is searched by company
+        ↓
+Make Text Aggregator
+Matching research records are combined
+        ↓
+AI
+Relevant research is ranked
++ client response is drafted
+        ↓
+Google Sheets
+Request is updated
+        ↓
+Human Review
+Account manager reviews the recommendation
+        ↓
+AI
+Client preferences are extracted
+        ↓
+JSON Parser
+Preferences are converted into structured data
+        ↓
+Google Sheets
+Client preferences are stored
+```
+
+---
 
 ## 📝 Example Request
 
-**Client / Fund:** Siyujiang
+**Client / Fund:** Atlas Capital
 
 **Company:** Nike
 
 **Geography:** China
 
-**Research Question:**
-> We're reviewing Nike and want to understand whether inventory pressure is easing, how Chinese consumer demand is developing, and what wholesale partners are seeing.
-
 **Priority:** High
 
-**Dealine:** 08/09/2026
+**Research Question:**
 
-**Email:** jiangsiyu32@gmail.com
+We're reviewing Nike and want to understand whether inventory pressure is easing, how Chinese consumer demand is developing, and what wholesale partners are seeing.
 
-## 🔎 Example AI Output
-CLIENT NEED
+---
 
-Client seeks to understand whether Nike’s inventory pressure is easing, how Chinese consumer demand is developing, and what wholesale partners are seeing, specifically in China.
+## 🔎 Example Research Recommendation
 
-TOP RESEARCH
+The synthetic research library contains several Nike-related research records.
 
-1.
-Research ID: R002
-Topic: Consumer Demand
+For this request, the AI may identify:
+
+| Rank | Research ID | Topic | Geography | Relevance |
+|------|-------------|-------|-----------|-----------|
+| 1 | R002 | Consumer Demand | China | Directly addresses Chinese consumer demand and local competitive conditions |
+| 2 | R001 | Inventory | North America | Provides context on inventory normalisation and retailer stock levels |
+| 3 | R004 | Wholesale | North America | Provides insight into wholesale partner behaviour, orders and markdown risk |
+
+The AI is instructed to recommend only research records that exist in the supplied library.
+
+If no sufficiently relevant research exists, it should say so instead of inventing a research item.
+
+---
+
+## 💬 Example AI-Assisted Response
+
+Thank you for the brief. I identified several Nike-focused research items that may be relevant to your review.
+
+The China consumer-demand interview appears most directly aligned with your geographic focus, while the inventory and wholesale discussions provide additional context on channel conditions and stock levels.
+
+These recommendations are intended for human review before being shared with a client.
+
+---
+
+## 👤 Client Preference Extraction
+
+The workflow also converts each research request into reusable client-interest data.
+
+For example:
+
+```json
+{
+  "companies_of_interest": ["Nike"],
+  "geography_interest": ["China"],
+  "topics_of_interest": [
+    "Inventory",
+    "Consumer Demand",
+    "Wholesale"
+  ],
+  "research_style": [
+    "Channel Checks",
+    "Operating Trends"
+  ]
+}
+```
+
+This information is stored separately from the original request so that client interests can be analysed over time.
+
+---
+
+## 🛠 Technology Stack
+
+**Tally**
+Used for the investor research request form.
+
+**Make**
+Used to orchestrate the complete automation workflow.
+
+**Google Sheets**
+Used as the synthetic research library, client-request log, and client-preference database.
+
+**Make Text Aggregator**
+Combines multiple matching research records into one structured context block before the AI step.
+
+**AI / LLM Module**
+Used to rank research relevance, draft client responses, and extract structured client preferences.
+
+**JSON Parser**
+Converts AI-generated preference data into structured fields that can be stored in Google Sheets.
+
+---
+
+## 🛡 AI Safeguards
+
+The workflow includes several safeguards:
+
+- AI can only recommend research contained in the supplied synthetic research library.
+- Research IDs must match existing database records.
+- The AI is instructed not to invent experts, interviews, research items, quotes, or unsupported findings.
+- If no suitable research exists, the AI should explicitly state that no direct match was found.
+- The system does not provide investment advice.
+- AI-generated responses are marked Ready for human review before client communication.
+- Request and AI-output data are logged for traceability.
+
+---
+
+## 👥 Client Preference System
+
+The project separates individual requests from longer-term client preference data.
+
+### Client Request
+
+Stores what the client asked for at a specific point in time.
+
+Example:
+
+```
+Company: Nike
 Geography: China
-Why relevant: Directly addresses demand trends in China, including consumer preferences, traffic recovery, and local brand competition.
+Question: Inventory pressure, consumer demand and wholesale conditions
+Priority: High
+```
 
-2.
-Research ID: R001
-Topic: Inventory
-Geography: North America
-Why relevant: Provides insights on inventory normalization, discounting, and retailer ordering behavior that can inform cross-region inventory dynamics and potential parallels.
+### Client Preference
 
-3.
-Research ID: R003
-Topic: Supply Chain
-Geography: Global
-Why relevant: Offers context on manufacturing lead times, sourcing, and freight conditions that can influence inventory pressure and wholesale readiness, even if not China-specific.
+Stores reusable information extracted from that request.
 
-DIRECT MATCHES
+Example:
 
-R002
-Topic: Consumer Demand
-Geography: China
-Why relevant: Directly addresses Chinese demand dynamics and consumer behavior relevant to Nike in China.
+```
+Companies of Interest: Nike
+Geography Interest: China
+Topics of Interest: Inventory, Consumer Demand, Wholesale
+Research Style: Channel Checks, Operating Trends
+```
 
-CONTEXTUAL RESEARCH
+This structure could later support more personalised and proactive research recommendations.
 
-R001
-Topic: Inventory
-Geography: North America
-Note: Discusses inventory normalization and discounting in North America. Not China-specific, but useful for cross-region inventory comparison and potential implications for wholesale behavior.
+---
 
-R003
-Topic: Supply Chain
-Geography: Global
-Note: Provides global supply chain context (lead times, sourcing, freight) that can influence inventory pressure and wholesale readiness, but not China-specific.
+## ✅ What This Project Demonstrates
 
-SUGGESTED CLIENT RESPONSE
+- No-code workflow automation
+- AI-assisted research triage
+- Prompt design
+- Structured AI output
+- Client preference extraction
+- Research relevance ranking
+- Human-in-the-loop AI design
+- Google Sheets database design
+- Account-management workflow thinking
 
-Thank you for the request. We’ve identified the most directly relevant item for your China-focused questions and a couple of contextual items to provide broader inventory and supply chain context.
+---
 
-- Direct relevance to China demand: R002 – Nike: China consumer demand trends, traffic recovery, local brand competition. This item best informs how Chinese demand is evolving and potential implications for inventory and wholesale discussions.
-- Context for inventory pressure and wholesale dynamics (non-China-specific): 
-  - R001 – Inventory: North America — insights on inventory normalization, discounting, and retailer ordering behavior.
-  - R003 – Supply Chain: Global — context on manufacturing lead times and sourcing that can affect inventory levels and wholesale positioning.
+## 🔮 Future Improvements
 
-If helpful, we can summarize key takeaways from R002 and map them to potential implications for Nike China inventory and wholesale conversations, while noting the limitations of cross-region inferences.
+Potential future versions could include:
 
-CLIENT INTEREST TAGS
+- Semantic search instead of company-only filtering
+- An evolving client profile combining multiple historical requests
+- Proactive alerts when newly added research matches a client's interests
+- Research relevance confidence scores
+- Automated duplicate-preference detection
+- A dashboard showing client research patterns
+- Email delivery after human approval
 
-China, Nike, inventory, demand, wholesale
+---
 
-## 👤 CRM / Client Preference System
+## ⚠️ Disclaimer
 
-In addition to answering individual research requests, the workflow also captures reusable client preference data.
+All research records, client names, requests, and example outputs used in this project are synthetic and created solely for portfolio demonstration purposes.
 
-This helps separate:
+This project does not contain proprietary investment research or real client data.
 
-- **What the client asked today**
-- **What the account manager has learned about the client over time**
+This project is not affiliated with Third Bridge or any other investment research provider.
 
-### Example Preference Record
+---
 
-| Field | Example |
-|---|---|
-| Client / Fund | Atlas Capital |
-| Requester Email | analyst@atlascapital-demo.com |
-| Companies of Interest | Nike |
-| Geography Interest | China |
-| Topics of Interest | Inventory, Consumer Demand, Wholesale |
-| Research Style | Channel Checks, Operating Trends |
-| Priority | High |
-| Last Request | 08 Sep 2026 |
+## About the Project
 
-The preference data is extracted by AI, converted into structured JSON, and then saved into Google Sheets as a lightweight CRM-style client profile.
+This project was created to explore how AI can reduce repetitive administrative work while supporting high-touch client service.
 
-### CRM Workflow
-
-```text
-Client Research Request
-        ↓
-AI Preference Extraction
-        ↓
-JSON Parser
-        ↓
-Structured Client Preferences
-        ↓
-Google Sheets Client Preference Database
+The objective is not to replace human account managers or research professionals, but to demonstrate how AI can assist with research discovery, response preparation, and client-preference tracking while maintaining human oversight.
